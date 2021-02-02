@@ -21,10 +21,10 @@ public class InitUserInDataBase implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		projet.akka.gestion.entity.Service s = new projet.akka.gestion.entity.Service("Comptable");
-		Salarie u = new Salarie("toto@toto.fr", passwordEncorder.encode("toto"), "Daniel", "Kelly", s, Role.ROLE_ADMIN);
-
-		serviceRepo.save(s);
-		salarieRepo.save(u);
+//		projet.akka.gestion.entity.Service s = new projet.akka.gestion.entity.Service("Comptable");
+//		Salarie u = new Salarie("toto@toto.fr", passwordEncorder.encode("toto"), "Daniel", "Kelly", s, Role.ROLE_ADMIN);
+//
+//		serviceRepo.save(s);
+//		salarieRepo.save(u);
 	}
 }

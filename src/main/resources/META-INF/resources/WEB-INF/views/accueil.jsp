@@ -21,11 +21,11 @@
 
 			<h1>Se connecter</h1>
 		</div>
-		<form action="" method="post">
+		<form  method="post">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}">
 			<div class="form-group">
-				<label><b>Email :</b></label> <input name="mail" placeholder="Entrer votre mail"
+				<label><b>Email :</b></label> <input name="username" placeholder="Entrer votre mail"
 					class="form-control" required="required">
 			</div>
 			<div class="form-group">

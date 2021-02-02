@@ -58,7 +58,7 @@ public class SalarieService{
 	}
 	
 	
-	public List<Salarie> findAllFilter(String mail) {
+	public Optional<Salarie> findAllFilter(String mail) {
 		return salarieRepo.findByMail(mail);
 	}
 

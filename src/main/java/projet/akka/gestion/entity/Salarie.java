@@ -1,5 +1,6 @@
 package projet.akka.gestion.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +11,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name = "salarie")
 @SequenceGenerator(name = "seqSalarie", sequenceName = "seq_salarie", initialValue = 10, allocationSize = 1)
-public class Salarie {
+public class Salarie implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqSalarie")
 	protected Integer id;
@@ -28,15 +32,16 @@ public class Salarie {
 	protected String mail;
 	@NotEmpty(message = "password,nom,prenom obligatoire")
 	protected String password,nom,prenom;
-	@NotEmpty
+	@NotNull
 	@ManyToOne
 	protected Service service;
-	@NotEmpty
+	@NotNull
 	private Role role;
 	@Version
 	protected int version;
-
+@ManyToOne
 	private Salarie manager;
+	@OneToMany
 	private List<Salarie> manage = new ArrayList<Salarie>();
 
 
@@ -47,8 +52,8 @@ public class Salarie {
 
 	public Salarie(@NotEmpty String mail, @NotEmpty(message = "password,nom,prenom obligatoire") String password,
 			@NotEmpty(message = "password,nom,prenom obligatoire") String nom,
-			@NotEmpty(message = "password,nom,prenom obligatoire") String prenom, @NotEmpty Service service,
-			@NotEmpty Role role, Salarie manager, List<Salarie> manage) {
+			@NotEmpty(message = "password,nom,prenom obligatoire") String prenom, @NotNull Service service,
+			@NotNull Role role, Salarie manager, List<Salarie> manage) {
 		this.mail = mail;
 		this.password = password;
 		this.nom = nom;
@@ -60,8 +65,8 @@ public class Salarie {
 	}
 	public Salarie(@NotEmpty String mail, @NotEmpty(message = "password,nom,prenom obligatoire") String password,
 			@NotEmpty(message = "password,nom,prenom obligatoire") String nom,
-			@NotEmpty(message = "password,nom,prenom obligatoire") String prenom, @NotEmpty Service service,
-			@NotEmpty Role role) {
+			@NotEmpty(message = "password,nom,prenom obligatoire") String prenom, @NotNull Service service,
+			@NotNull Role role) {
 		this.mail = mail;
 		this.password = password;
 		this.nom = nom;

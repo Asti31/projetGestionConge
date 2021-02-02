@@ -1,6 +1,6 @@
 package projet.akka.gestion.repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,7 +11,7 @@ public interface SalarieRepo extends JpaRepository<Salarie,Integer>{
 	
 	
 	
-	public List<Salarie> findByMail(String mail);
+	public Optional<Salarie> findByMail(String mail);
 	
 	
 	
