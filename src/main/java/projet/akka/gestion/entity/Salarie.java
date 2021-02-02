@@ -58,6 +58,18 @@ public class Salarie {
 		this.manager = manager;
 		this.manage = manage;
 	}
+	public Salarie(@NotEmpty String mail, @NotEmpty(message = "password,nom,prenom obligatoire") String password,
+			@NotEmpty(message = "password,nom,prenom obligatoire") String nom,
+			@NotEmpty(message = "password,nom,prenom obligatoire") String prenom, @NotEmpty Service service,
+			@NotEmpty Role role) {
+		this.mail = mail;
+		this.password = password;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.service = service;
+		this.role = role;
+
+	}
 
 
 
