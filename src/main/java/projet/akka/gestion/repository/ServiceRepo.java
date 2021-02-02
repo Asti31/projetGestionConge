@@ -8,5 +8,5 @@ import projet.akka.gestion.entity.Service;
 
 public interface ServiceRepo extends JpaRepository<Service,Integer>{
 
-	public List<Service> findAllFilter(String name);
+	public List<Service> findByLibelle(String libelle);
 }

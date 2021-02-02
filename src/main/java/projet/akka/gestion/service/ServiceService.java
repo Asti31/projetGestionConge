@@ -1,77 +1,65 @@
 package projet.akka.gestion.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import dao.IDAOService;
+import java.util.Optional;
 
 
-public class ServiceService implements IDAOService{
 
-	@Override
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+import projet.akka.gestion.entity.Service;
+import projet.akka.gestion.repository.ServiceRepo;
+
+
+
+@org.springframework.stereotype.Service
+public class ServiceService {
+@Autowired
+private ServiceRepo serviceRepo;
+
+
+
+public void createService(String libelle) {
+	Service service = new Service(libelle);
+	serviceRepo.save(service);
+	
+}
+
+
+
 	public Service save(Service t) {
 		
-		EntityManager em=Context.getInstance().getEmf().createEntityManager();
-		em.getTransaction().begin();
-		try{t=em.merge(t);}
-		catch(Exception e) {System.out.println("Error save Service");}
-		em.getTransaction().commit();
-		em.close();
-		return t;
+		return serviceRepo.save(t);
 		
 	}
 
-	@Override
+
 	public void delete(Service t) {
-		EntityManager em=Context.getInstance().getEmf().createEntityManager();
-		em.getTransaction().begin();
-		try{em.remove(em.merge(t));}
-		catch(Exception e) {System.out.println("Error delete Service");}
-		em.getTransaction().commit();
-		em.close();
+		serviceRepo.delete(t);
 	}
 
-	@Override
+	
+	
 	public Service findById(Integer id) {
-		Service emp=null;
-		EntityManager em=Context.getInstance().getEmf().createEntityManager();
-		try{emp=em.find(Service.class,id);}
-		catch(Exception e) {System.out.println("Error find Service");}
-		
-		em.close();
-		return emp;
+		Optional<Service> opt = serviceRepo.findById(id);
+		if (opt.isPresent()) {
+			return opt.get();
+		}
+		return new Service();
 	}
 
-	@Override
+	
+	
 	public List<Service> findAll() {
-		List<Service> employes = new ArrayList();
-		EntityManager em=Context.getInstance().getEmf().createEntityManager();
-		try 
-		{
-			Query query= em.createQuery("from Service",Service.class);
-			employes=query.getResultList();
-		}
-		catch(Exception e){System.out.println("Error findAll Service");}
-		em.close();
-		return employes;
+		return serviceRepo.findAll();
+		
 	}
 	
-	@Override
-	public List<Service> findAllFilter(String name) {
-		List<Service> employes = new ArrayList();
-		EntityManager em=Context.getInstance().getEmf().createEntityManager();
-		try 
-		{
-			Query query= em.createQuery("from Service e where e.login like :filter",Service.class);
-			query.setParameter("filter", "%"+name+"%");
-			employes=query.getResultList();
-		}
-		catch(Exception e){System.out.println("Error findAlFilter Service");}
-		em.close();
-		return employes;
+	
+	public List<Service> findAllFilter(String libelle) {
+		return serviceRepo.findByLibelle(libelle);
 	}
 
 }

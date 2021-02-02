@@ -162,11 +162,61 @@ public class Conge implements Serializable{
 
 
 	@Override
-	public String toString() {
-		return "Conge [id=" + id + ", salarie=" + salarie + ", typeConge=" + typeConge + ", dateDebut=" + dateDebut
-				+ ", dateFin=" + dateFin + ", dateDemande=" + dateDemande + ", nbJour=" + nbJour + ", motif=" + motif
-				+ ", etat=" + etat + ", version=" + version + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dateDebut == null) ? 0 : dateDebut.hashCode());
+		result = prime * result + ((dateDemande == null) ? 0 : dateDemande.hashCode());
+		result = prime * result + ((dateFin == null) ? 0 : dateFin.hashCode());
+		result = prime * result + ((etat == null) ? 0 : etat.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conge other = (Conge) obj;
+		if (dateDebut == null) {
+			if (other.dateDebut != null)
+				return false;
+		} else if (!dateDebut.equals(other.dateDebut))
+			return false;
+		if (dateDemande == null) {
+			if (other.dateDemande != null)
+				return false;
+		} else if (!dateDemande.equals(other.dateDemande))
+			return false;
+		if (dateFin == null) {
+			if (other.dateFin != null)
+				return false;
+		} else if (!dateFin.equals(other.dateFin))
+			return false;
+		if (etat == null) {
+			if (other.etat != null)
+				return false;
+		} else if (!etat.equals(other.etat))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+
+	
+
+
+
+
 	
 	
 }
