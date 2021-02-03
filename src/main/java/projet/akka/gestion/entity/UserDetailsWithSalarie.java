@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@SuppressWarnings("serial")
 public class UserDetailsWithSalarie implements UserDetails {
 
 	private Salarie salarie;
@@ -30,6 +31,15 @@ public class UserDetailsWithSalarie implements UserDetails {
 	public String getUsername() {
 		return salarie.getMail();
 	}
+
+	public Integer getId() {
+		return salarie.getId();
+	}
+	
+	public Salarie getSalarie() {
+		return salarie;
+	}
+
 
 	@Override
 	public boolean isAccountNonExpired() {

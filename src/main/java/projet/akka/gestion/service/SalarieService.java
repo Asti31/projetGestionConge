@@ -26,9 +26,7 @@ public class SalarieService{
 		salarieRepo.save(salarie);
 		
 	}
-	
-	
-	
+
 	public Salarie save(Salarie s) {
 		return salarieRepo.save(s);
 
@@ -40,8 +38,7 @@ public class SalarieService{
 	public void delete(Integer id) {
 		salarieRepo.deleteById(id);
 	}
-	
-	
+
 	
 	public Salarie findById(Integer id) {
 		Optional<Salarie> opt = salarieRepo.findById(id);
@@ -52,7 +49,6 @@ public class SalarieService{
 	}
 
 	
-	
 	public List<Salarie> findAll() {
 		return salarieRepo.findAll();
 	}
@@ -61,5 +57,10 @@ public class SalarieService{
 	public Optional<Salarie> findAllFilter(String mail) {
 		return salarieRepo.findByMail(mail);
 	}
+	
+	public List<Conge> findCongeBySalarie(Integer id ) {
+		return salarieRepo.findCongeBySalarie(id);
+	}
+	
 
 }
