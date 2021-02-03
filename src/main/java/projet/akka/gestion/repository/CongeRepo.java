@@ -27,6 +27,8 @@ public interface CongeRepo extends JpaRepository<Conge,Integer>{
 	
 	List<Conge> findByEtat(String etat);
 	
+	List<Conge> findByEtatAndSalarie(String etat, Salarie salarie);
+	
 	
 	List<Conge> findBySalarie(Salarie id);
 }

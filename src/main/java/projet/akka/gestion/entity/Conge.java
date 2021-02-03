@@ -16,7 +16,9 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import projet.akka.gestion.validator.FinishDate;
 
@@ -27,22 +29,24 @@ public class Conge implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqConge")
 	private Integer id;
-	@NotEmpty
+	@NotNull
 	@ManyToOne
 	private Salarie salarie;
-	@NotEmpty
+	@NotNull
 	private TypeConge typeConge;
 	@FutureOrPresent
 	@Column(columnDefinition = "DATE")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateDebut;
 	//@FinishDate(dateDebut = this.dateDebut.toString())
 	@Column(columnDefinition = "DATE")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateFin;    
 	
 	@Column(columnDefinition = "DATE")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateDemande=LocalDate.now();
-	@NotEmpty(message = "nbJour obligatoire")
-	private Integer nbJour;
+	private Integer nbJour=0;
 	private String motif;
 	private String etat = "ATTENTE";
 	
@@ -60,6 +64,7 @@ public class Conge implements Serializable{
 		this.typeConge = typeConge;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+		this.nbJour = calculeNbJour();
 		this.motif = motif;
 	}
 

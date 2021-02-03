@@ -11,12 +11,7 @@ public class LoginController {
 		
 		return "accueil";
 	}
-	
-	@GetMapping("")
-	public String salarie() {
-		
-		return "salarie/salarie";
-	}
+
 
 	@GetMapping("/home")
 	public String home() {

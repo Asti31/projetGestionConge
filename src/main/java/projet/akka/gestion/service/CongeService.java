@@ -85,6 +85,10 @@ public void createConge(Salarie salarie, TypeConge typeConge, LocalDate dateDebu
 	public List<Conge> demandeAttente() {
 		return congeRepo.findByEtat("ATTENTE");
 	}
+	
+	public List<Conge> demandeAttente(Salarie salarie) {
+		return congeRepo.findByEtatAndSalarie("ATTENTE", salarie);
+	}
 
 	
 	public List<Conge> demandeSalarie(Salarie s) {

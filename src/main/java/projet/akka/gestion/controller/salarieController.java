@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import projet.akka.gestion.entity.Conge;
-
+import projet.akka.gestion.entity.Salarie;
+import projet.akka.gestion.entity.TypeConge;
 import projet.akka.gestion.entity.UserDetailsWithSalarie;
 import projet.akka.gestion.service.CongeService;
 import projet.akka.gestion.service.SalarieService;
@@ -38,8 +39,12 @@ public class salarieController {
 	@GetMapping({ "", "/" })
 	public ModelAndView list(Authentication auth) {
 		ModelAndView modelAndView = new ModelAndView("salarie/salarie", "conges", salarieService.findCongeBySalarie(((UserDetailsWithSalarie)auth.getPrincipal()).getId()));
-		modelAndView.addObject("today", LocalDate.now());
-		modelAndView.addObject("aujourdhui", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		Salarie salarie = ((UserDetailsWithSalarie)auth.getPrincipal()).getSalarie();
+		modelAndView.addObject("salarie", salarie);
+		Conge conge = new Conge();
+		conge.setSalarie(salarie);
+		modelAndView.addObject("conge", conge);
+		modelAndView.addObject("typesConge", TypeConge.values());
 		
 		return modelAndView;
 	} 
@@ -71,15 +76,10 @@ public class salarieController {
 	@PostMapping("/save")
 	public ModelAndView save(@Valid @ModelAttribute("conge") Conge conge, BindingResult br) {
 		if (br.hasErrors()) {
-			
 			return goForm(conge);
-			
 		}
-		 
-			congeService.save(conge);
-			
-		
-		
+		conge.setNbJour(conge.calculeNbJour());
+		congeService.save(conge);
 		return new ModelAndView("redirect:/salarie");
 	}
 	
