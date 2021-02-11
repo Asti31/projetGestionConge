@@ -19,30 +19,43 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.sun.istack.NotNull;
+
+import projet.akka.gestion.entity.Vue.Common;
+import projet.akka.gestion.entity.Vue.ManagerWithEmploye;
 
 @Entity
 @Table(name = "salarie")
 @SequenceGenerator(name = "seqSalarie", sequenceName = "seq_salarie", initialValue = 10, allocationSize = 1)
 public class Salarie implements Serializable{
 	@Id
+	@JsonView(Vue.Common.class)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqSalarie")
 	protected Integer id;
 	@NotEmpty
 	@Column(unique=true)
+	@JsonView(Vue.Common.class)
 	protected String mail;
 	@NotEmpty(message = "password,nom,prenom obligatoire")
-	protected String password,nom,prenom;
+	@JsonView(Vue.Common.class)
+	protected String password;
+	@NotEmpty(message = "password,nom,prenom obligatoire")
+	protected String nom,prenom;
 	@NotNull
 	@ManyToOne
+	@JsonView(Vue.Common.class)
 	protected Service service;
 	@NotNull
+	@JsonView(Vue.Common.class)
 	private Role role;
 	@Version
 	protected int version;
-@ManyToOne
+	@ManyToOne
+	@JsonView(Vue.EmployeWithManager.class)
 	private Salarie manager;
 	@OneToMany(fetch = FetchType.EAGER)
+	@JsonView(Vue.ManagerWithEmploye.class)
 	private List<Salarie> manage = new ArrayList<Salarie>();
 
 
