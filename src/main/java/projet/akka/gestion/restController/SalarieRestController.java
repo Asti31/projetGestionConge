@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import projet.akka.gestion.entity.Salarie;
+import projet.akka.gestion.entity.Vue;
 import projet.akka.gestion.entity.Vue.EmployeWithManager;
 import projet.akka.gestion.exception.SalarieInvalidException;
 import projet.akka.gestion.exception.SalarieNotFoundException;
@@ -42,6 +43,12 @@ public class SalarieRestController {
 	public List<Salarie> getAllSalarie() {
 		return salarieService.findAll();
 	}
+	
+	@JsonView(Vue.Common.class)
+	@GetMapping({ "/lazy" })
+	public List<Salarie> getAllSalarieLazy() {
+		return salarieService.findAll();
+	}
 
 	@PostMapping({ "", "/" })
 	public ResponseEntity<Salarie> addSalarie(@Valid @RequestBody Salarie p, BindingResult br,
@@ -56,6 +63,7 @@ public class SalarieRestController {
 		return new ResponseEntity<Salarie>(p, headers, HttpStatus.CREATED);
 	}
 
+	@JsonView(EmployeWithManager.class)
 	@GetMapping("/{id}")
 	public Salarie findById(@PathVariable("id") Integer id) {
 		Salarie p = salarieService.findById(id);
@@ -66,6 +74,7 @@ public class SalarieRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(EmployeWithManager.class)
 	public Salarie update(@Valid @RequestBody Salarie p, BindingResult br, @PathVariable("id") Integer id) {
 		if (br.hasErrors()) {
 			throw new SalarieInvalidException();

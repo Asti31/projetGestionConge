@@ -40,6 +40,7 @@ public class Salarie implements Serializable{
 	@NotEmpty(message = "password,nom,prenom obligatoire")
 	@JsonView(Vue.Common.class)
 	protected String password;
+	@JsonView(Vue.Common.class)
 	@NotEmpty(message = "password,nom,prenom obligatoire")
 	protected String nom,prenom;
 	@NotNull

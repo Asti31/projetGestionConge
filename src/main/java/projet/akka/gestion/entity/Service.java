@@ -7,12 +7,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 @Entity
 public class Service implements Serializable{
 	@Id
+	@JsonView(Vue.Common.class)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@JsonView(Vue.Common.class)
 	private String libelle;
 	
 	public Service() {
